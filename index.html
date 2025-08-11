@@ -22,7 +22,7 @@
 <main>
 <section id="about">
   <h2>About</h2>
-  <p>Analytical and motivated finance professional with experience in credit analysis, compliance, and client support. Skilled in financial statement analysis, risk assessment, and cross-functional collaboration.</p>
+  <p>Analytical and motivated finance professional who is passionate about sustainable capitalism. I have experience in credit analysis, compliance, and client support. Skilled in financial statement analysis, risk assessment, and cross-functional collaboration.</p>
 </section>
 <section id="experience">
   <h2>Work Experience</h2>
@@ -129,14 +129,6 @@
           <p class="metric-result">**RMSE:** 5.529</p>
         </div>
       </div>
-
-      <!-- Line chart section -->
-      <div class="chart-container">
-        <h4>Line Chart Visualization</h4>
-        <p>This chart visualizes the actual stock price alongside the forecast from the Naïve method.</p>
-        <canvas id="stockChart"></canvas>
-      </div>
-
       <!-- Download Links for Data -->
       <div class="download-data-section">
         <h3>Download the Data</h3>
@@ -150,123 +142,3 @@
       </div>
     </div>
   </section>
-
-  <!-- ============================================= -->
-  <!-- ========== JAVASCRIPT FOR THE CHART ========== -->
-  <!-- ============================================= -->
-  <script>
-    // This script fetches and parses the CSV data to create a line chart.
-    
-    // Asynchronous function to fetch and process data
-    async function createStockChart() {
-      // Get the canvas element to draw the chart on
-      const ctx = document.getElementById('stockChart').getContext('2d');
-      
-      // Define the path to the CSV file
-      const csvFilePath = 'Raytheon Stock Forecast.xlsx';
-
-      try {
-        // Fetch the CSV file
-        const response = await fetch(csvFilePath);
-        // Check if the response is successful
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const csvText = await response.text();
-
-        // Split the CSV text into lines and remove the header
-        const lines = csvText.trim().split('\n');
-        const dataRows = lines.slice(2); // Skip the first two header rows
-
-        // Arrays to hold our chart labels and data
-        const labels = [];
-        const actualPrices = [];
-        const naiveForecasts = [];
-
-        // Loop through each data row
-        dataRows.forEach(row => {
-          const columns = row.split(',');
-          // Ensure the row has enough columns
-          if (columns.length > 2) {
-            // Extract the date and price data
-            labels.push(columns[0]);
-            actualPrices.push(parseFloat(columns[1]));
-            naiveForecasts.push(parseFloat(columns[2]));
-          }
-        });
-        
-        // Remove the first value from naiveForecasts since it's empty
-        naiveForecasts.shift();
-        
-        // Create the new chart
-        new Chart(ctx, {
-          type: 'line', // The type of chart we want to create
-          data: {
-            labels: labels, // Dates on the X-axis
-            datasets: [{
-              label: 'Actual Stock Price',
-              data: actualPrices,
-              borderColor: '#8fbc8f', // Green line color
-              borderWidth: 2,
-              fill: false, // Don't fill the area under the line
-              tension: 0.1
-            }, {
-              label: 'Naïve Forecast',
-              data: [null, ...naiveForecasts], // Add a null to align with the Actual Price data
-              borderColor: '#f0f0f0', // Light gray line color
-              borderWidth: 2,
-              fill: false,
-              tension: 0.1,
-              borderDash: [5, 5] // Make the forecast line dashed
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              x: {
-                title: {
-                  display: true,
-                  text: 'Date',
-                  color: '#f0f0f0'
-                },
-                ticks: {
-                  color: '#f0f0f0'
-                }
-              },
-              y: {
-                title: {
-                  display: true,
-                  text: 'Price (USD)',
-                  color: '#f0f0f0'
-                },
-                ticks: {
-                  color: '#f0f0f0'
-                }
-              }
-            },
-            plugins: {
-              legend: {
-                labels: {
-                  color: '#f0f0f0'
-                }
-              },
-              tooltip: {
-                mode: 'index',
-                intersect: false,
-              }
-            }
-          }
-        });
-
-      } catch (error) {
-        console.error('Error fetching or creating the chart:', error);
-      }
-    }
-
-    // Call the function to create the chart when the page loads
-    window.onload = createStockChart;
-  </script>
-
-</body>
-</html>
