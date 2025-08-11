@@ -58,4 +58,215 @@
   <a href="path/to/your/resume.pdf" class="resume-button" download>
     Download My Resume
   </a>
-</section>
+</section><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carson Holgate - Portfolio</title>
+  <!-- Link to the Montserrat font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Link to your existing stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Chart.js library to create the line chart -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- ============================================= -->
+  <!-- ========== YOUR EXISTING PORTFOLIO CONTENT ========== -->
+  <!-- ============================================= -->
+
+  <img src="headshot.png" alt="Carson Holgate headshot" class="profile-pic">
+  
+  <header>
+    <h1>Carson Holgate</h1>
+    <h2>Finance Professional</h2>
+  </header>
+  
+  <section id="about">
+    <p>This is where your "about me" content would go.</p>
+  </section>
+
+  <!-- ============================================= -->
+  <!-- ========== PROJECT SECTION START (UPDATED) ========== -->
+  <!-- ============================================= -->
+
+  <section id="projects">
+    <h2>My Projects</h2>
+    <div class="project-container">
+      <h3>Raytheon Stock Forecast Analysis</h3>
+      <p class="project-description">
+        This project involves a comparative analysis of different stock forecasting methods for Raytheon Technologies. The study explores the effectiveness of Naïve, Moving Average, Linear Regression, and Exponential Smoothing methods, with a focus on determining which provides the lowest Root Mean Square Error (RMSE).
+      </p>
+
+      <!-- Project Details Grid -->
+      <div class="project-details-grid">
+        <!-- Naïve Method Card -->
+        <div class="project-card">
+          <h4>Naïve Method</h4>
+          <p>This method assumes the next period's value will be the same as the current period's. Your analysis found this to be the most accurate method for this specific dataset.</p>
+          <p class="metric-result">**Key Finding:** Lowest RMSE</p>
+        </div>
+        <!-- Moving Average Card -->
+        <div class="project-card">
+          <h4>Moving Average</h4>
+          <p>This forecast uses a 4-period moving average to smooth out short-term fluctuations in the stock data.</p>
+          <p class="metric-result">**RMSE:** 9.712</p>
+        </div>
+        <!-- Linear Regression Card -->
+        <div class="project-card">
+          <h4>Linear Regression</h4>
+          <p>A statistical approach that models the relationship between the stock's closing price and time to predict future values.</p>
+          <p class="metric-result">**RMSE:** 17.156</p>
+        </div>
+        <!-- Exponential Smoothing Card -->
+        <div class="project-card">
+          <h4>Exponential Smoothing</h4>
+          <p>This method gives more weight to recent observations, providing a more responsive forecast to recent market trends.</p>
+          <p class="metric-result">**RMSE:** 5.529</p>
+        </div>
+      </div>
+
+      <!-- Line chart section -->
+      <div class="chart-container">
+        <h4>Line Chart Visualization</h4>
+        <p>This chart visualizes the actual stock price alongside the forecast from the Naïve method.</p>
+        <canvas id="stockChart"></canvas>
+      </div>
+
+      <!-- Download Links for Data -->
+      <div class="download-data-section">
+        <h3>Download the Data</h3>
+        <p>View the raw data and analysis for each forecasting method.</p>
+        <div class="download-links">
+          <a href="Raytheon Stock Forecast.xlsx - NAIIVE.csv" class="download-button" download>Naïve Forecast Data</a>
+          <a href="Raytheon Stock Forecast.xlsx - MOVING AVERAGE.csv" class="download-button" download>Moving Average Data</a>
+          <a href="Raytheon Stock Forecast.xlsx - LINEAR REGRESSION.csv" class="download-button" download>Linear Regression Data</a>
+          <a href="Raytheon Stock Forecast.xlsx - EXPONENTIAL .csv" class="download-button" download>Exponential Smoothing Data</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================= -->
+  <!-- ========== JAVASCRIPT FOR THE CHART ========== -->
+  <!-- ============================================= -->
+  <script>
+    // This script fetches and parses the CSV data to create a line chart.
+    
+    // Asynchronous function to fetch and process data
+    async function createStockChart() {
+      // Get the canvas element to draw the chart on
+      const ctx = document.getElementById('stockChart').getContext('2d');
+      
+      // Define the path to the CSV file
+      const csvFilePath = 'Raytheon Stock Forecast.xlsx - NAIIVE.csv';
+
+      try {
+        // Fetch the CSV file
+        const response = await fetch(csvFilePath);
+        // Check if the response is successful
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const csvText = await response.text();
+
+        // Split the CSV text into lines and remove the header
+        const lines = csvText.trim().split('\n');
+        const dataRows = lines.slice(2); // Skip the first two header rows
+
+        // Arrays to hold our chart labels and data
+        const labels = [];
+        const actualPrices = [];
+        const naiveForecasts = [];
+
+        // Loop through each data row
+        dataRows.forEach(row => {
+          const columns = row.split(',');
+          // Ensure the row has enough columns
+          if (columns.length > 2) {
+            // Extract the date and price data
+            labels.push(columns[0]);
+            actualPrices.push(parseFloat(columns[1]));
+            naiveForecasts.push(parseFloat(columns[2]));
+          }
+        });
+        
+        // Remove the first value from naiveForecasts since it's empty
+        naiveForecasts.shift();
+        
+        // Create the new chart
+        new Chart(ctx, {
+          type: 'line', // The type of chart we want to create
+          data: {
+            labels: labels, // Dates on the X-axis
+            datasets: [{
+              label: 'Actual Stock Price',
+              data: actualPrices,
+              borderColor: '#8fbc8f', // Green line color
+              borderWidth: 2,
+              fill: false, // Don't fill the area under the line
+              tension: 0.1
+            }, {
+              label: 'Naïve Forecast',
+              data: [null, ...naiveForecasts], // Add a null to align with the Actual Price data
+              borderColor: '#f0f0f0', // Light gray line color
+              borderWidth: 2,
+              fill: false,
+              tension: 0.1,
+              borderDash: [5, 5] // Make the forecast line dashed
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: 'Date',
+                  color: '#f0f0f0'
+                },
+                ticks: {
+                  color: '#f0f0f0'
+                }
+              },
+              y: {
+                title: {
+                  display: true,
+                  text: 'Price (USD)',
+                  color: '#f0f0f0'
+                },
+                ticks: {
+                  color: '#f0f0f0'
+                }
+              }
+            },
+            plugins: {
+              legend: {
+                labels: {
+                  color: '#f0f0f0'
+                }
+              },
+              tooltip: {
+                mode: 'index',
+                intersect: false,
+              }
+            }
+          }
+        });
+
+      } catch (error) {
+        console.error('Error fetching or creating the chart:', error);
+      }
+    }
+
+    // Call the function to create the chart when the page loads
+    window.onload = createStockChart;
+  </script>
+
+</body>
+</html>
