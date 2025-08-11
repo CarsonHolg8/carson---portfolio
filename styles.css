@@ -38,3 +38,11 @@ a:hover {
 .resume-button:hover {
   background-color: #7aa57a;
 }
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Makes the image a circle */
+  object-fit: cover;
+  border: 4px solid #8fbc8f; /* Adds a green border */
+  margin-bottom: 20px;
+}
