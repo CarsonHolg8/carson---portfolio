@@ -24,3 +24,17 @@ a {
 a:hover {
   text-decoration: underline;
 }
+.resume-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #8fbc8f;
+  color: #1a1a1a;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.resume-button:hover {
+  background-color: #7aa57a;
+}
