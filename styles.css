@@ -3,3 +3,24 @@ header,footer{background:#fff;padding:1rem;text-align:center;}
 nav a{margin:0 0.5rem;color:#333;text-decoration:none;}
 main{padding:1rem;max-width:800px;margin:auto;}
 section{margin-bottom:2rem;}
+/* Update the body background and text color */
+body {
+  background-color: #1a1a1a; /* Dark gray background */
+  color: #f0f0f0; /* Light gray text */
+  font-family: 'Montserrat', sans-serif; /* A modern font */
+}
+
+/* Update the color of headings */
+h1, h2, h3 {
+  color: #8fbc8f; /* A soft green accent color */
+}
+
+/* Style links for better visibility */
+a {
+  color: #8fbc8f;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
