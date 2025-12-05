@@ -29,11 +29,39 @@
             scroll-padding-top: 5rem;
         }
 
+        /* NEW: Background Image Styling 
+        IMPORTANT: Replace 'header-bg.jpg' with your actual image path 
+        */
+        body {
+            /* Fallback background color */
+            background-color: #f7f7f7;
+            /* Set the image, make it cover the screen, and fix it */
+            background-image: url('header-bg.jpg'); 
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center top;
+            font-family: 'Inter', sans-serif;
+            color: #1f2937; /* Dark gray text */
+        }
+        
+        /* NEW: Overlay for Readability 
+        This div sits on top of the body background image and provides the slight white/opaque layer 
+        so the text and cards are easily readable over the picture. 
+        */
+        .content-overlay {
+            /* The overlay takes up the full space of the document */
+            min-height: 100vh;
+            /* Add a semi-transparent white background over the image */
+            background-color: rgba(255, 255, 255, 0.95); /* Adjust opacity (0.95) as needed */
+            padding-bottom: 2rem; /* Ensure footer space */
+        }
+
         /* Basic styling for the content box (cards) */
         .content-card {
             background-color: #ffffff;
             border: 1px solid #e5e7eb;
             transition: all 0.3s ease;
+            /* Ensure cards have a subtle background if the overlay is very transparent */
         }
         .content-card:hover {
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -69,146 +97,150 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
-<body class="bg-gray-50 font-sans text-gray-800">
+<body>
+    <!-- NEW: Content Overlay div -->
+    <div class="content-overlay">
 
-    <!-- Sticky Navigation Header -->
-    <header class="sticky top-0 z-50 bg-white shadow-lg">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-8">
-            <a href="#about" class="nav-link text-gray-600 hover:text-primary-blue font-medium transition duration-150 ease-in-out">About</a>
-            <a href="#skills" class="nav-link text-gray-600 hover:text-primary-blue font-medium transition duration-150 ease-in-out">Skills</a>
-            <a href="#experience" class="nav-link text-gray-600 hover:text-primary-blue font-medium transition duration-150 ease-in-out">Experience</a>
-            <a href="#education" class="nav-link text-gray-600 hover:text-primary-blue font-medium transition duration-150 ease-in-out">Education</a>
-            <a href="CarsonHolgateResume.pdf" target="_blank" class="nav-link text-white bg-accent-gold px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-150 ease-in-out shadow-md">
-                Download Resume
-            </a>
-        </nav>
-    </header>
-
-    <!-- Main Container -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-
-        <!-- Hero / Header Section -->
-        <section class="text-center mb-16">
-            <div class="w-32 h-32 mx-auto mb-6">
-                <!-- IMPORTANT: Replace 'headshot.jpg' with the actual path to your professional photo -->
-                <img src="headshot.jpg" alt="Carson Holgate Professional Headshot" class="rounded-full object-cover w-full h-full border-4 border-primary-blue shadow-xl">
-            </div>
-            <h1 class="text-5xl font-extrabold text-primary-blue mb-2">Carson Holgate</h1>
-            <p class="text-xl text-gray-600 mb-4">Finance Professional • CLO Deal Administration • Credit & Compliance</p>
-            <p class="text-lg font-light text-gray-500">Charlotte, North Carolina</p>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="mb-16">
-            <h2 class="text-3xl font-bold text-primary-blue border-b-2 border-accent-gold pb-2 mb-6">About</h2>
-            <div class="content-card p-6 rounded-xl shadow-lg">
-                <p class="text-lg leading-relaxed">
-                    Highly analytical Finance professional specializing in CLO Deal Administration, credit analysis, and operational risk management. Experienced in financial statement review, compliance processes, and sophisticated deal administration workflows. I leverage strong communication and technical skills to ensure disciplined, long-term financial stewardship and optimize complex transactional processes.
-                </p>
-            </div>
-        </section>
-
-        <!-- Key Skills / Toolbox Section -->
-        <section id="skills" class="mb-16">
-            <h2 class="text-3xl font-bold text-primary-blue border-b-2 border-accent-gold pb-2 mb-6">Key Skills & Toolbox</h2>
-            <div class="content-card p-6 rounded-xl shadow-lg">
-                <div class="flex flex-wrap gap-3">
-                    <!-- Add or remove skills relevant to your domain. Use Tailwind badges/pills. -->
-                    <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">CLO Deal Administration</span>
-                    <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Credit Analysis</span>
-                    <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Financial Modeling</span>
-                    <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Bloomberg Terminal</span>
-                    <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Excel VBA / Macros</span>
-                    <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">SQL & Data Management</span>
-                    <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">KYC/AML Compliance</span>
-                    <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Operational Risk</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Work Experience Section -->
-        <section id="experience" class="mb-16">
-            <h2 class="text-3xl font-bold text-primary-blue border-b-2 border-accent-gold pb-2 mb-6">Work Experience</h2>
-
-            <!-- Experience Item 1: U.S. Bank - CLO Deal Administrator -->
-            <div class="content-card p-6 rounded-xl shadow-lg mb-8">
-                <div class="flex justify-between items-start mb-2">
-                    <div>
-                        <h3 class="text-xl font-semibold text-primary-blue">CLO Deal Administrator</h3>
-                        <p class="text-gray-600 font-medium">U.S. Bank</p>
-                    </div>
-                    <span class="text-sm text-gray-500 font-light bg-gray-100 px-3 py-1 rounded-full">2024 – Present</span>
-                </div>
-                <!-- IMPORTANT: Add 3-5 bullet points using the CAR method here -->
-                <ul class="list-none achievement-list mt-4 text-gray-700 space-y-2">
-                    <li><span class="font-medium">Context/Action Example:</span> Managed the full lifecycle administration for a portfolio of over 20 Collateralized Loan Obligation (CLO) transactions, ensuring adherence to complex indenture covenants.</li>
-                    <li><span class="font-medium">Result Example:</span> Developed an Excel-based reconciliation tool that automated 60% of data verification checks, reducing manual processing time by 8 hours per week.</li>
-                    <li><span class="font-medium">Value Example:</span> Collaborated with legal and compliance teams to successfully navigate regulatory changes, maintaining a 100% compliance rate across all assigned deals.</li>
-                </ul>
-            </div>
-
-            <!-- Experience Item 2: U.S. Bank - KYC Triggers Analyst -->
-            <div class="content-card p-6 rounded-xl shadow-lg mb-8">
-                <div class="flex justify-between items-start mb-2">
-                    <div>
-                        <h3 class="text-xl font-semibold text-primary-blue">KYC Triggers Analyst</h3>
-                        <p class="text-gray-600 font-medium">U.S. Bank</p>
-                    </div>
-                    <span class="text-sm text-gray-500 font-light bg-gray-100 px-3 py-1 rounded-full">2024</span>
-                </div>
-                <!-- IMPORTANT: Add 3-5 bullet points using the CAR method here -->
-                <ul class="list-none achievement-list mt-4 text-gray-700 space-y-2">
-                    <li>Analyzed and remediated Know Your Customer (KYC) trigger events for commercial clients, mitigating regulatory exposure and financial risk.</li>
-                    <li>Processed and validated high-volume document requests, ensuring all client files met stringent anti-money laundering (AML) requirements.</li>
-                </ul>
-            </div>
-
-            <!-- Experience Item 3: First Bank (FBNC) - Commercial Credit Intern -->
-            <div class="content-card p-6 rounded-xl shadow-lg mb-8">
-                <div class="flex justify-between items-start mb-2">
-                    <div>
-                        <h3 class="text-xl font-semibold text-primary-blue">Commercial Credit Intern</h3>
-                        <p class="text-gray-600 font-medium">First Bank (FBNC)</p>
-                    </div>
-                    <span class="text-sm text-gray-500 font-light bg-gray-100 px-3 py-1 rounded-full">May 2023 – Aug 2023</span>
-                </div>
-                <!-- Add relevant bullet points here -->
-                <ul class="list-none achievement-list mt-4 text-gray-700 space-y-2">
-                    <li>Assisted loan officers in preparing commercial credit underwriting packages by performing cash flow and financial statement analysis on middle-market companies.</li>
-                </ul>
-            </div>
-            
-            <!-- (You can remove less relevant past roles or combine them under a single "Previous Roles" section if space is tight) -->
-
-        </section>
-
-        <!-- Education Section -->
-        <section id="education" class="mb-16">
-            <h2 class="text-3xl font-bold text-primary-blue border-b-2 border-accent-gold pb-2 mb-6">Education</h2>
-            <div class="content-card p-6 rounded-xl shadow-lg">
-                <h3 class="text-xl font-semibold text-primary-blue">B.B.A. in Finance</h3>
-                <p class="text-gray-600 font-medium">Queens University of Charlotte</p>
-                <p class="text-sm text-gray-500 mt-2">Graduated: December 2023</p>
-                <p class="text-sm text-gray-500">GPA: 3.46 • Dean’s List (6 semesters)</p>
-            </div>
-        </section>
-
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-dark-bg text-white py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="mb-4 text-lg">Connect With Me</p>
-            <div class="space-x-4 mb-4">
-                <!-- IMPORTANT: Update the mailto link to your actual email -->
-                <a href="mailto:Carsonmholgate@gmail.com" class="text-accent-gold hover:text-white transition duration-150 ease-in-out font-medium underline">
-                    Carsonmholgate@gmail.com
+        <!-- Sticky Navigation Header -->
+        <header class="sticky top-0 z-50 bg-white shadow-lg">
+            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-8">
+                <a href="#about" class="nav-link text-gray-600 hover:text-primary-blue font-medium transition duration-150 ease-in-out">About</a>
+                <a href="#skills" class="nav-link text-gray-600 hover:text-primary-blue font-medium transition duration-150 ease-in-out">Skills</a>
+                <a href="#experience" class="nav-link text-gray-600 hover:text-primary-blue font-medium transition duration-150 ease-in-out">Experience</a>
+                <a href="#education" class="nav-link text-gray-600 hover:text-primary-blue font-medium transition duration-150 ease-in-out">Education</a>
+                <a href="CarsonHolgateResume.pdf" target="_blank" class="nav-link text-white bg-accent-gold px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-150 ease-in-out shadow-md">
+                    Download Resume
                 </a>
-            </div>
-            <p class="text-sm text-gray-400">&copy; <script>document.write(new Date().getFullYear())</script> Carson Holgate. All Rights Reserved.</p>
-            <p class="text-xs text-gray-600 mt-2">Built using modern HTML and Tailwind CSS.</p>
+            </nav>
+        </header>
+
+        <!-- Main Container -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+
+            <!-- Hero / Header Section -->
+            <section class="text-center mb-16">
+                <div class="w-32 h-32 mx-auto mb-6">
+                    <!-- IMPORTANT: Replace 'headshot.jpg' with the actual path to your professional photo -->
+                    <img src="headshot.jpg" alt="Carson Holgate Professional Headshot" class="rounded-full object-cover w-full h-full border-4 border-primary-blue shadow-xl">
+                </div>
+                <h1 class="text-5xl font-extrabold text-primary-blue mb-2">Carson Holgate</h1>
+                <p class="text-xl text-gray-600 mb-4">Finance Professional • CLO Deal Administration • Credit & Compliance</p>
+                <p class="text-lg font-light text-gray-500">Charlotte, North Carolina</p>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="mb-16">
+                <h2 class="text-3xl font-bold text-primary-blue border-b-2 border-accent-gold pb-2 mb-6">About</h2>
+                <div class="content-card p-6 rounded-xl shadow-lg">
+                    <p class="text-lg leading-relaxed">
+                        Highly analytical Finance professional specializing in CLO Deal Administration, credit analysis, and operational risk management. Experienced in financial statement review, compliance processes, and sophisticated deal administration workflows. I leverage strong communication and technical skills to ensure disciplined, long-term financial stewardship and optimize complex transactional processes.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Key Skills / Toolbox Section -->
+            <section id="skills" class="mb-16">
+                <h2 class="text-3xl font-bold text-primary-blue border-b-2 border-accent-gold pb-2 mb-6">Key Skills & Toolbox</h2>
+                <div class="content-card p-6 rounded-xl shadow-lg">
+                    <div class="flex flex-wrap gap-3">
+                        <!-- Add or remove skills relevant to your domain. Use Tailwind badges/pills. -->
+                        <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">CLO Deal Administration</span>
+                        <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Credit Analysis</span>
+                        <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Financial Modeling</span>
+                        <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Bloomberg Terminal</span>
+                        <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Excel VBA / Macros</span>
+                        <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">SQL & Data Management</span>
+                        <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">KYC/AML Compliance</span>
+                        <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Operational Risk</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work Experience Section -->
+            <section id="experience" class="mb-16">
+                <h2 class="text-3xl font-bold text-primary-blue border-b-2 border-accent-gold pb-2 mb-6">Work Experience</h2>
+
+                <!-- Experience Item 1: U.S. Bank - CLO Deal Administrator -->
+                <div class="content-card p-6 rounded-xl shadow-lg mb-8">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="text-xl font-semibold text-primary-blue">CLO Deal Administrator</h3>
+                            <p class="text-gray-600 font-medium">U.S. Bank</p>
+                        </div>
+                        <span class="text-sm text-gray-500 font-light bg-gray-100 px-3 py-1 rounded-full">2024 – Present</span>
+                    </div>
+                    <!-- IMPORTANT: Add 3-5 bullet points using the CAR method here -->
+                    <ul class="list-none achievement-list mt-4 text-gray-700 space-y-2">
+                        <li><span class="font-medium">Context/Action Example:</span> Managed the full lifecycle administration for a portfolio of over 20 Collateralized Loan Obligation (CLO) transactions, ensuring adherence to complex indenture covenants.</li>
+                        <li><span class="font-medium">Result Example:</span> Developed an Excel-based reconciliation tool that automated 60% of data verification checks, reducing manual processing time by 8 hours per week.</li>
+                        <li><span class="font-medium">Value Example:</span> Collaborated with legal and compliance teams to successfully navigate regulatory changes, maintaining a 100% compliance rate across all assigned deals.</li>
+                    </ul>
+                </div>
+
+                <!-- Experience Item 2: U.S. Bank - KYC Triggers Analyst -->
+                <div class="content-card p-6 rounded-xl shadow-lg mb-8">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="text-xl font-semibold text-primary-blue">KYC Triggers Analyst</h3>
+                            <p class="text-gray-600 font-medium">U.S. Bank</p>
+                        </div>
+                        <span class="text-sm text-gray-500 font-light bg-gray-100 px-3 py-1 rounded-full">2024</span>
+                    </div>
+                    <!-- IMPORTANT: Add 3-5 bullet points using the CAR method here -->
+                    <ul class="list-none achievement-list mt-4 text-gray-700 space-y-2">
+                        <li>Analyzed and remediated Know Your Customer (KYC) trigger events for commercial clients, mitigating regulatory exposure and financial risk.</li>
+                        <li>Processed and validated high-volume document requests, ensuring all client files met stringent anti-money laundering (AML) requirements.</li>
+                    </ul>
+                </div>
+
+                <!-- Experience Item 3: First Bank (FBNC) - Commercial Credit Intern -->
+                <div class="content-card p-6 rounded-xl shadow-lg mb-8">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="text-xl font-semibold text-primary-blue">Commercial Credit Intern</h3>
+                            <p class="text-gray-600 font-medium">First Bank (FBNC)</p>
+                        </div>
+                        <span class="text-sm text-gray-500 font-light bg-gray-100 px-3 py-1 rounded-full">May 2023 – Aug 2023</span>
+                    </div>
+                    <!-- Add relevant bullet points here -->
+                    <ul class="list-none achievement-list mt-4 text-gray-700 space-y-2">
+                        <li>Assisted loan officers in preparing commercial credit underwriting packages by performing cash flow and financial statement analysis on middle-market companies.</li>
+                    </ul>
+                </div>
+                
+                <!-- (You can remove less relevant past roles or combine them under a single "Previous Roles" section if space is tight) -->
+
+            </section>
+
+            <!-- Education Section -->
+            <section id="education" class="mb-16">
+                <h2 class="text-3xl font-bold text-primary-blue border-b-2 border-accent-gold pb-2 mb-6">Education</h2>
+                <div class="content-card p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold text-primary-blue">B.B.A. in Finance</h3>
+                    <p class="text-gray-600 font-medium">Queens University of Charlotte</p>
+                    <p class="text-sm text-gray-500 mt-2">Graduated: December 2023</p>
+                    <p class="text-sm text-gray-500">GPA: 3.46 • Dean’s List (6 semesters)</p>
+                </div>
+            </section>
+
         </div>
-    </footer>
+
+        <!-- Footer -->
+        <footer class="bg-dark-bg text-white py-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <p class="mb-4 text-lg">Connect With Me</p>
+                <div class="space-x-4 mb-4">
+                    <!-- IMPORTANT: Update the mailto link to your actual email -->
+                    <a href="mailto:Carsonmholgate@gmail.com" class="text-accent-gold hover:text-white transition duration-150 ease-in-out font-medium underline">
+                        Carsonmholgate@gmail.com
+                    </a>
+                </div>
+                <p class="text-sm text-gray-400">&copy; <script>document.write(new Date().getFullYear())</script> Carson Holgate. All Rights Reserved.</p>
+                <p class="text-xs text-gray-600 mt-2">Built using modern HTML and Tailwind CSS.</p>
+            </div>
+        </footer>
+
+    </div> <!-- End of content-overlay -->
 
 </body>
 </html>
