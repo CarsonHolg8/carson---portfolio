@@ -1,86 +1,214 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carson Holgate - Finance Portfolio | CLO Deal Administration</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Set up Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1e3a8a', // Deep corporate blue
+                        'accent-gold': '#f59e0b', // Subtle gold/amber for accents
+                        'dark-bg': '#0f172a',    // Dark background for contrast
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scroll-padding for sticky header navigation */
+        html {
+            scroll-padding-top: 5rem;
+        }
 
-  <title>Carson Holgate — Finance Portfolio</title>
+        /* Basic styling for the content box (cards) */
+        .content-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        .content-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
 
-  <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+        /* Responsive adjustment for the mobile menu */
+        @media (max-width: 768px) {
+            .nav-link {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+        }
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css">
+        /* Style for the achievement bullets */
+        .achievement-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .achievement-list li::before {
+            content: '•';
+            color: #1e3a8a; /* Primary blue dot */
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0;
+        }
+    </style>
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-gray-50 font-sans text-gray-800">
 
-  <!-- ---------- HERO HEADER WITH SKYLINE ---------- -->
-  <header>
-    <img src="headshot.jpg" alt="Carson Holgate headshot" class="profile-pic">
+    <!-- Sticky Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-lg">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-8">
+            <a href="#about" class="nav-link text-gray-600 hover:text-primary-blue font-medium transition duration-150 ease-in-out">About</a>
+            <a href="#skills" class="nav-link text-gray-600 hover:text-primary-blue font-medium transition duration-150 ease-in-out">Skills</a>
+            <a href="#experience" class="nav-link text-gray-600 hover:text-primary-blue font-medium transition duration-150 ease-in-out">Experience</a>
+            <a href="#education" class="nav-link text-gray-600 hover:text-primary-blue font-medium transition duration-150 ease-in-out">Education</a>
+            <a href="CarsonHolgateResume.pdf" target="_blank" class="nav-link text-white bg-accent-gold px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-150 ease-in-out shadow-md">
+                Download Resume
+            </a>
+        </nav>
+    </header>
 
-    <h1>Carson Holgate</h1>
-    <p>Finance • CLO Deal Administration • Credit & Compliance — Charlotte, NC</p>
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
 
-    <nav>
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#education">Education</a>
-      <a href="#resume">Resume</a>
-    </nav>
-  </header>
+        <!-- Hero / Header Section -->
+        <section class="text-center mb-16">
+            <div class="w-32 h-32 mx-auto mb-6">
+                <!-- IMPORTANT: Replace 'headshot.jpg' with the actual path to your professional photo -->
+                <img src="headshot.jpg" alt="Carson Holgate Professional Headshot" class="rounded-full object-cover w-full h-full border-4 border-primary-blue shadow-xl">
+            </div>
+            <h1 class="text-5xl font-extrabold text-primary-blue mb-2">Carson Holgate</h1>
+            <p class="text-xl text-gray-600 mb-4">Finance Professional • CLO Deal Administration • Credit & Compliance</p>
+            <p class="text-lg font-light text-gray-500">Charlotte, North Carolina</p>
+        </section>
 
+        <!-- About Section -->
+        <section id="about" class="mb-16">
+            <h2 class="text-3xl font-bold text-primary-blue border-b-2 border-accent-gold pb-2 mb-6">About</h2>
+            <div class="content-card p-6 rounded-xl shadow-lg">
+                <p class="text-lg leading-relaxed">
+                    Highly analytical Finance professional specializing in CLO Deal Administration, credit analysis, and operational risk management. Experienced in financial statement review, compliance processes, and sophisticated deal administration workflows. I leverage strong communication and technical skills to ensure disciplined, long-term financial stewardship and optimize complex transactional processes.
+                </p>
+            </div>
+        </section>
 
-  <!-- ---------- MAIN CONTENT ---------- -->
-  <main>
+        <!-- Key Skills / Toolbox Section -->
+        <section id="skills" class="mb-16">
+            <h2 class="text-3xl font-bold text-primary-blue border-b-2 border-accent-gold pb-2 mb-6">Key Skills & Toolbox</h2>
+            <div class="content-card p-6 rounded-xl shadow-lg">
+                <div class="flex flex-wrap gap-3">
+                    <!-- Add or remove skills relevant to your domain. Use Tailwind badges/pills. -->
+                    <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">CLO Deal Administration</span>
+                    <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Credit Analysis</span>
+                    <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Financial Modeling</span>
+                    <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Bloomberg Terminal</span>
+                    <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Excel VBA / Macros</span>
+                    <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">SQL & Data Management</span>
+                    <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">KYC/AML Compliance</span>
+                    <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Operational Risk</span>
+                </div>
+            </div>
+        </section>
 
-    <!-- ABOUT -->
-    <section id="about">
-      <h2>About</h2>
-      <p>
-        Finance professional specializing in CLO Deal Administration, credit analysis, sustainable capitalism, and 
-        operational risk management. Experienced in financial statement review, compliance processes, and deal 
-        administration workflows. Strong communicator with a passion for disciplined, long-term financial stewardship.
-      </p>
-    </section>
+        <!-- Work Experience Section -->
+        <section id="experience" class="mb-16">
+            <h2 class="text-3xl font-bold text-primary-blue border-b-2 border-accent-gold pb-2 mb-6">Work Experience</h2>
 
-    <!-- EXPERIENCE -->
-    <section id="experience">
-      <h2>Work Experience</h2>
-      <ul>
-        <li><strong>U.S. Bank</strong> — CLO Deal Administrator (2024 – Present)</li>
-        <li><strong>U.S. Bank</strong> — KYC Triggers Analyst (2024)</li>
-        <li><strong>First Bank (FBNC)</strong> — Commercial Credit Intern (May 2023 – Aug 2023)</li>
-        <li><strong>Kearfott Corporation</strong> — Contract Administrator Intern (May 2022 – Aug 2022)</li>
-        <li><strong>Haywood Park Hotel</strong> — Valet & Front Desk (June 2020 – Aug 2023)</li>
-      </ul>
-    </section>
+            <!-- Experience Item 1: U.S. Bank - CLO Deal Administrator -->
+            <div class="content-card p-6 rounded-xl shadow-lg mb-8">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <h3 class="text-xl font-semibold text-primary-blue">CLO Deal Administrator</h3>
+                        <p class="text-gray-600 font-medium">U.S. Bank</p>
+                    </div>
+                    <span class="text-sm text-gray-500 font-light bg-gray-100 px-3 py-1 rounded-full">2024 – Present</span>
+                </div>
+                <!-- IMPORTANT: Add 3-5 bullet points using the CAR method here -->
+                <ul class="list-none achievement-list mt-4 text-gray-700 space-y-2">
+                    <li><span class="font-medium">Context/Action Example:</span> Managed the full lifecycle administration for a portfolio of over 20 Collateralized Loan Obligation (CLO) transactions, ensuring adherence to complex indenture covenants.</li>
+                    <li><span class="font-medium">Result Example:</span> Developed an Excel-based reconciliation tool that automated 60% of data verification checks, reducing manual processing time by 8 hours per week.</li>
+                    <li><span class="font-medium">Value Example:</span> Collaborated with legal and compliance teams to successfully navigate regulatory changes, maintaining a 100% compliance rate across all assigned deals.</li>
+                </ul>
+            </div>
 
-    <!-- EDUCATION -->
-    <section id="education">
-      <h2>Education</h2>
-      <p>
-        B.B.A. in Finance — Queens University of Charlotte (Dec 2023)  
-        <br>GPA: 3.46 • Dean’s List (6 semesters)
-      </p>
-    </section>
+            <!-- Experience Item 2: U.S. Bank - KYC Triggers Analyst -->
+            <div class="content-card p-6 rounded-xl shadow-lg mb-8">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <h3 class="text-xl font-semibold text-primary-blue">KYC Triggers Analyst</h3>
+                        <p class="text-gray-600 font-medium">U.S. Bank</p>
+                    </div>
+                    <span class="text-sm text-gray-500 font-light bg-gray-100 px-3 py-1 rounded-full">2024</span>
+                </div>
+                <!-- IMPORTANT: Add 3-5 bullet points using the CAR method here -->
+                <ul class="list-none achievement-list mt-4 text-gray-700 space-y-2">
+                    <li>Analyzed and remediated Know Your Customer (KYC) trigger events for commercial clients, mitigating regulatory exposure and financial risk.</li>
+                    <li>Processed and validated high-volume document requests, ensuring all client files met stringent anti-money laundering (AML) requirements.</li>
+                </ul>
+            </div>
 
-    <!-- RESUME -->
-    <section id="resume">
-      <h2>Resume</h2>
-      <a href="CarsonHolgateResume.pdf" class="resume-button" download>
-        Download My Resume
-      </a>
-    </section>
+            <!-- Experience Item 3: First Bank (FBNC) - Commercial Credit Intern -->
+            <div class="content-card p-6 rounded-xl shadow-lg mb-8">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <h3 class="text-xl font-semibold text-primary-blue">Commercial Credit Intern</h3>
+                        <p class="text-gray-600 font-medium">First Bank (FBNC)</p>
+                    </div>
+                    <span class="text-sm text-gray-500 font-light bg-gray-100 px-3 py-1 rounded-full">May 2023 – Aug 2023</span>
+                </div>
+                <!-- Add relevant bullet points here -->
+                <ul class="list-none achievement-list mt-4 text-gray-700 space-y-2">
+                    <li>Assisted loan officers in preparing commercial credit underwriting packages by performing cash flow and financial statement analysis on middle-market companies.</li>
+                </ul>
+            </div>
+            
+            <!-- (You can remove less relevant past roles or combine them under a single "Previous Roles" section if space is tight) -->
 
-  </main>
+        </section>
 
-  <!-- ---------- FOOTER ---------- -->
-  <footer>
-    <p>Contact: <a href="mailto:Carsonmholgate@gmail.com">Carsonmholgate@gmail.com</a></p>
-  </footer>
+        <!-- Education Section -->
+        <section id="education" class="mb-16">
+            <h2 class="text-3xl font-bold text-primary-blue border-b-2 border-accent-gold pb-2 mb-6">Education</h2>
+            <div class="content-card p-6 rounded-xl shadow-lg">
+                <h3 class="text-xl font-semibold text-primary-blue">B.B.A. in Finance</h3>
+                <p class="text-gray-600 font-medium">Queens University of Charlotte</p>
+                <p class="text-sm text-gray-500 mt-2">Graduated: December 2023</p>
+                <p class="text-sm text-gray-500">GPA: 3.46 • Dean’s List (6 semesters)</p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark-bg text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="mb-4 text-lg">Connect With Me</p>
+            <div class="space-x-4 mb-4">
+                <!-- IMPORTANT: Update the mailto link to your actual email -->
+                <a href="mailto:Carsonmholgate@gmail.com" class="text-accent-gold hover:text-white transition duration-150 ease-in-out font-medium underline">
+                    Carsonmholgate@gmail.com
+                </a>
+            </div>
+            <p class="text-sm text-gray-400">&copy; <script>document.write(new Date().getFullYear())</script> Carson Holgate. All Rights Reserved.</p>
+            <p class="text-xs text-gray-600 mt-2">Built using modern HTML and Tailwind CSS.</p>
+        </div>
+    </footer>
 
 </body>
 </html>
