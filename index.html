@@ -1,240 +1,831 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carson Holgate - Finance Portfolio | CLO Deal Administration</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Set up Tailwind Configuration -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-blue': '#1e3a8a', // Deep corporate blue
-                        'accent-gold': '#f59e0b', // Subtle gold/amber for accents
-                        'dark-bg': '#0f172a',    // Dark background for contrast
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Custom scroll-padding for sticky header navigation */
-        html {
-            scroll-padding-top: 5rem;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carson Holgate | Finance & CLO Deal Administration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Variables ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* NEW: Background Image Styling 
-        IMPORTANT: Replace 'header-bg.jpg' with your actual image path 
-        */
-        body {
-            /* Fallback background color */
-            background-color: #f7f7f7;
-            /* Set the image, make it cover the screen, and fix it */
-            background-image: url('header-bg.jpg'); 
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center top;
-            font-family: 'Inter', sans-serif;
-            color: #1f2937; /* Dark gray text */
-        }
-        
-        /* NEW: Overlay for Readability 
-        This div sits on top of the body background image and provides the slight white/opaque layer 
-        so the text and cards are easily readable over the picture. 
-        */
-        .content-overlay {
-            /* The overlay takes up the full space of the document */
-            min-height: 100vh;
-            /* Add a semi-transparent white background over the image */
-            background-color: rgba(255, 255, 255, 0.75); /* Adjust opacity (0.95) as needed */
-            padding-bottom: 2rem; /* Ensure footer space */
-        }
+    :root {
+      --navy:   #0d1f3c;
+      --navy2:  #152845;
+      --gold:   #c9a84c;
+      --gold2:  #e8c97a;
+      --cream:  #f5f0e8;
+      --slate:  #8a99b2;
+      --white:  #ffffff;
+      --text:   #1a2a42;
+      --light:  #eef2f8;
+    }
 
-        /* Basic styling for the content box (cards) */
-        .content-card {
-            background-color: #ffffff;
-            border: 1px solid #e5e7eb;
-            transition: all 0.3s ease;
-            /* Ensure cards have a subtle background if the overlay is very transparent */
-        }
-        .content-card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transform: translateY(-2px);
-        }
+    html { scroll-behavior: smooth; }
 
-        /* Responsive adjustment for the mobile menu */
-        @media (max-width: 768px) {
-            .nav-link {
-                padding-left: 0.5rem;
-                padding-right: 0.5rem;
-            }
-        }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-        /* Style for the achievement bullets */
-        .achievement-list li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .achievement-list li::before {
-            content: '•';
-            color: #1e3a8a; /* Primary blue dot */
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-            position: absolute;
-            left: 0;
-        }
-    </style>
-    <!-- Google Font: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    /* ── Navigation ────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 4rem;
+      background: rgba(13, 31, 60, 0.97);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold) !important;
+      padding: 0.45rem 1.2rem;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--gold) !important; color: var(--navy) !important; }
+
+    /* ── Hero ───────────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+      padding: 0 4rem;
+    }
+
+    /* Subtle geometric texture */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          rgba(201,168,76,0.03) 0px,
+          rgba(201,168,76,0.03) 1px,
+          transparent 1px,
+          transparent 60px
+        ),
+        repeating-linear-gradient(
+          -45deg,
+          rgba(201,168,76,0.03) 0px,
+          rgba(201,168,76,0.03) 1px,
+          transparent 1px,
+          transparent 60px
+        );
+      pointer-events: none;
+    }
+
+    /* Gold accent bar left */
+    .hero::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 15%; bottom: 15%;
+      width: 3px;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    }
+
+    .hero-inner {
+      position: relative;
+      display: flex; align-items: center; gap: 6rem;
+      max-width: 1100px; margin: 0 auto; width: 100%;
+      padding-top: 5rem;
+    }
+
+    .hero-text { flex: 1; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block; width: 28px; height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 5.5vw, 4.5rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-name span {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .hero-tagline {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.65);
+      font-weight: 300;
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+    }
+
+    .hero-location {
+      display: flex; align-items: center; gap: 0.5rem;
+      color: var(--slate); font-size: 0.85rem;
+      margin-bottom: 2.5rem;
+    }
+    .hero-location svg { width: 14px; height: 14px; fill: var(--gold); flex-shrink: 0; }
+
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.8);
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Photo */
+    .hero-photo-wrap {
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .hero-photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -12px;
+      border: 1px solid rgba(201,168,76,0.35);
+      border-radius: 4px;
+      top: 12px; left: 12px;
+    }
+
+    .hero-photo {
+      width: 300px;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 3px;
+      display: block;
+      position: relative;
+      filter: brightness(0.92) contrast(1.05);
+    }
+
+    /* Fallback initials if photo missing */
+    .hero-photo-fallback {
+      width: 300px; height: 380px;
+      background: linear-gradient(135deg, var(--navy2), #1e3a6e);
+      border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem; font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Section Shared ─────────────────────────────────────────────── */
+    section { padding: 7rem 4rem; }
+
+    .section-inner { max-width: 1050px; margin: 0 auto; }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block; width: 22px; height: 1px;
+      background: var(--gold);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 3rem;
+    }
+
+    /* ── About ──────────────────────────────────────────────────────── */
+    #about { background: var(--white); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: #4a5a70;
+      font-size: 1.02rem;
+      line-height: 1.85;
+      margin-bottom: 1.25rem;
+    }
+
+    .about-highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .highlight-card {
+      background: var(--cream);
+      border-left: 3px solid var(--gold);
+      padding: 1.1rem 1.25rem;
+      border-radius: 0 3px 3px 0;
+    }
+    .highlight-card .hc-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .highlight-card .hc-label {
+      font-size: 0.78rem;
+      color: var(--slate);
+      letter-spacing: 0.05em;
+      font-weight: 500;
+    }
+
+    /* ── Skills ─────────────────────────────────────────────────────── */
+    #skills { background: var(--cream); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background: var(--white);
+      border-radius: 4px;
+      padding: 2rem 1.75rem;
+      border-top: 3px solid var(--gold);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .skill-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(13,31,60,0.1); }
+
+    .skill-icon {
+      width: 40px; height: 40px;
+      background: var(--navy);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .skill-icon svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 1.75; }
+
+    .skill-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    .skill-desc { font-size: 0.85rem; color: var(--slate); line-height: 1.65; }
+
+    /* ── Experience ─────────────────────────────────────────────────── */
+    #experience { background: var(--navy); }
+    #experience .section-title { color: var(--white); }
+
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.1));
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3.5rem;
+      padding-left: 2rem;
+      animation: fadeUp 0.5s ease both;
+    }
+    .timeline-item:last-child { margin-bottom: 0; }
+
+    .timeline-dot {
+      position: absolute;
+      left: -2.45rem;
+      top: 6px;
+      width: 10px; height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      border: 2px solid var(--navy);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.25);
+    }
+
+    .tl-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .tl-role {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .tl-date {
+      font-size: 0.75rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      font-weight: 500;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .tl-company {
+      font-size: 0.9rem;
+      color: var(--slate);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .tl-badge {
+      display: inline-block;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      margin-left: 0.75rem;
+      vertical-align: middle;
+    }
+
+    .tl-bullets { list-style: none; }
+    .tl-bullets li {
+      display: flex; gap: 0.75rem;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.92rem;
+      line-height: 1.7;
+      margin-bottom: 0.6rem;
+    }
+    .tl-bullets li::before {
+      content: '—';
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    /* ── Education ──────────────────────────────────────────────────── */
+    #education { background: var(--white); }
+
+    .edu-card {
+      background: var(--cream);
+      border-radius: 4px;
+      padding: 2.5rem 3rem;
+      display: flex; gap: 3rem; align-items: center;
+      border-left: 4px solid var(--gold);
+      max-width: 720px;
+    }
+
+    .edu-seal {
+      width: 72px; height: 72px;
+      background: var(--navy);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .edu-degree {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.25rem;
+    }
+    .edu-school { color: var(--slate); font-size: 0.9rem; margin-bottom: 0.75rem; }
+
+    .edu-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .edu-tag {
+      background: var(--navy);
+      color: var(--gold);
+      font-size: 0.72rem;
+      letter-spacing: 0.07em;
+      padding: 0.3rem 0.75rem;
+      border-radius: 2px;
+      font-weight: 500;
+    }
+
+    /* ── Contact / Footer ───────────────────────────────────────────── */
+    #contact {
+      background: var(--navy);
+      text-align: center;
+      padding: 6rem 4rem;
+    }
+
+    #contact .section-label { justify-content: center; }
+    #contact .section-title { color: var(--white); }
+
+    .contact-sub {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.95rem;
+      margin-bottom: 2.5rem;
+      max-width: 420px;
+      margin-left: auto; margin-right: auto;
+    }
+
+    .contact-links { display: flex; justify-content: center; gap: 1.25rem; flex-wrap: wrap; }
+
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      border: 1px solid rgba(201,168,76,0.35);
+      padding: 0.75rem 1.5rem;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .contact-link:hover { background: var(--gold); color: var(--navy); }
+    .contact-link svg { width: 15px; height: 15px; }
+
+    footer {
+      background: #070f1e;
+      text-align: center;
+      padding: 1.5rem;
+      color: rgba(255,255,255,0.25);
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Animations ─────────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-text { animation: fadeUp 0.7s ease 0.1s both; }
+    .hero-photo-wrap { animation: fadeUp 0.7s ease 0.25s both; }
+
+    /* Scroll reveal via Intersection Observer */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── Responsive ─────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 2rem; }
+      .nav-links { gap: 1.5rem; }
+      section { padding: 5rem 2rem; }
+
+      .hero { padding: 0 2rem; }
+      .hero-inner { flex-direction: column-reverse; gap: 3rem; text-align: center; padding-top: 6rem; }
+      .hero-eyebrow { justify-content: center; }
+      .hero-tagline { margin-left: auto; margin-right: auto; }
+      .hero-location { justify-content: center; }
+      .hero-btns { justify-content: center; }
+      .hero-photo { width: 220px; height: 280px; }
+      .hero-photo-fallback { width: 220px; height: 280px; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-highlights { grid-template-columns: 1fr 1fr; }
+
+      .edu-card { flex-direction: column; gap: 1.5rem; padding: 2rem; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .about-highlights { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
 <body>
-    <!-- NEW: Content Overlay div -->
-    <div class="content-overlay">
 
-        <!-- Sticky Navigation Header -->
-        <header class="sticky top-0 z-50 bg-white shadow-lg">
-            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-8">
-                <a href="#about" class="nav-link text-gray-600 hover:text-primary-blue font-medium transition duration-150 ease-in-out">About</a>
-                <a href="#skills" class="nav-link text-gray-600 hover:text-primary-blue font-medium transition duration-150 ease-in-out">Skills</a>
-                <a href="#experience" class="nav-link text-gray-600 hover:text-primary-blue font-medium transition duration-150 ease-in-out">Experience</a>
-                <a href="#education" class="nav-link text-gray-600 hover:text-primary-blue font-medium transition duration-150 ease-in-out">Education</a>
-                <a href="CarsonHolgateResume.pdf" target="_blank" class="nav-link text-white bg-accent-gold px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-150 ease-in-out shadow-md">
-                    Download Resume
-                </a>
-            </nav>
-        </header>
+  <!-- ── Navigation ── -->
+  <nav>
+    <a class="nav-logo" href="#">Carson Holgate</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="CarsonHolgateResume.pdf" class="nav-cta">Resume</a></li>
+    </ul>
+  </nav>
 
-        <!-- Main Container -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+  <!-- ── Hero ── -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-eyebrow">Finance Professional</div>
+        <h1 class="hero-name">Carson <span>Holgate</span></h1>
+        <p class="hero-tagline">
+          Building a career at the intersection of structured finance and operational precision — currently deepening expertise in CLO Deal Administration at U.S. Bank.
+        </p>
+        <div class="hero-location">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+          Charlotte, North Carolina
+        </div>
+        <div class="hero-btns">
+          <a href="#experience" class="btn-primary">View Experience</a>
+          <a href="mailto:Carsonmholgate@gmail.com" class="btn-outline">Get In Touch</a>
+        </div>
+      </div>
 
-            <!-- Hero / Header Section -->
-            <section class="text-center mb-16">
-                <div class="w-32 h-32 mx-auto mb-6">
-                    <!-- IMPORTANT: Replace 'headshot.jpg' with the actual path to your professional photo -->
-                    <img src="headshot.jpg" alt="Carson Holgate Professional Headshot" class="rounded-full object-cover w-full h-full border-4 border-primary-blue shadow-xl">
-                </div>
-                <h1 class="text-5xl font-extrabold text-primary-blue mb-2">Carson Holgate</h1>
-                <p class="text-xl text-gray-600 mb-4">Finance Professional • CLO Deal Administration • Credit & Compliance</p>
-                <p class="text-lg font-light text-gray-500">Charlotte, North Carolina</p>
-            </section>
+      <div class="hero-photo-wrap">
+        <!-- Uses your existing headshot.jpg — if not found, shows initials fallback -->
+        <img
+          class="hero-photo"
+          src="headshot.jpg"
+          alt="Carson Holgate"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="hero-photo-fallback" style="display:none;">CH</div>
+      </div>
+    </div>
+  </section>
 
-            <!-- About Section -->
-            <section id="about" class="mb-16">
-                <h2 class="text-3xl font-bold text-primary-blue border-b-2 border-accent-gold pb-2 mb-6">About</h2>
-                <div class="content-card p-6 rounded-xl shadow-lg">
-                    <p class="text-lg leading-relaxed">
-                        Highly analytical Finance professional specializing in CLO Deal Administration, credit analysis, and operational risk management. Experienced in financial statement review, compliance processes, and sophisticated deal administration workflows. I leverage strong communication and technical skills to ensure disciplined, long-term financial stewardship and optimize complex transactional processes.
-                    </p>
-                </div>
-            </section>
+  <!-- ── About ── -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">A Foundation Built on<br>Discipline & Curiosity</h2>
+      <div class="about-grid reveal">
+        <div class="about-text">
+          <p>
+            I am a Charlotte-based finance professional currently working as a CLO Deal Administrator at U.S. Bank, where I am developing hands-on expertise in the structured finance space. This role is an exciting step into the world of Collateralized Loan Obligations — a complex, fast-moving area I'm committed to mastering.
+          </p>
+          <p>
+            Prior to this role, I strengthened my analytical toolkit as a KYC Triggers Analyst at U.S. Bank, processing high-volume compliance documentation and mitigating regulatory risk. My commercial credit internship at First Bank gave me a grounding in financial statement analysis and credit underwriting fundamentals.
+          </p>
+          <p>
+            I graduated from Queens University of Charlotte with a B.B.A. in Finance (GPA 3.46, Dean's List six consecutive semesters), bringing a methodical, detail-oriented mindset to every transaction and workflow I touch.
+          </p>
+        </div>
+        <div>
+          <div class="about-highlights">
+            <div class="highlight-card">
+              <div class="hc-num">3.46</div>
+              <div class="hc-label">Graduating GPA</div>
+            </div>
+            <div class="highlight-card">
+              <div class="hc-num">6×</div>
+              <div class="hc-label">Dean's List Semesters</div>
+            </div>
+            <div class="highlight-card">
+              <div class="hc-num">U.S.</div>
+              <div class="hc-label">Bank — Current Employer</div>
+            </div>
+            <div class="highlight-card">
+              <div class="hc-num">CLO</div>
+              <div class="hc-label">Deal Administration</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            <!-- Key Skills / Toolbox Section -->
-            <section id="skills" class="mb-16">
-                <h2 class="text-3xl font-bold text-primary-blue border-b-2 border-accent-gold pb-2 mb-6">Key Skills & Toolbox</h2>
-                <div class="content-card p-6 rounded-xl shadow-lg">
-                    <div class="flex flex-wrap gap-3">
-                        <!-- Add or remove skills relevant to your domain. Use Tailwind badges/pills. -->
-                        <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">CLO Deal Administration</span>
-                        <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Credit Analysis</span>
-                        <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Financial Modeling</span>
-                        <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Excel VBA / Macros</span>
-                        <span class="bg-primary-blue text-white text-sm font-medium px-4 py-2 rounded-full shadow-md">Operational Risk</span>
-                    </div>
-                </div>
-            </section>
+  <!-- ── Skills ── -->
+  <section id="skills">
+    <div class="section-inner">
+      <div class="section-label">Toolbox</div>
+      <h2 class="section-title">Key Skills &amp; Competencies</h2>
+      <div class="skills-grid">
 
-            <!-- Work Experience Section -->
-            <section id="experience" class="mb-16">
-                <h2 class="text-3xl font-bold text-primary-blue border-b-2 border-accent-gold pb-2 mb-6">Work Experience</h2>
-
-                <!-- Experience Item 1: U.S. Bank - CLO Deal Administrator -->
-                <div class="content-card p-6 rounded-xl shadow-lg mb-8">
-                    <div class="flex justify-between items-start mb-2">
-                        <div>
-                            <h3 class="text-xl font-semibold text-primary-blue">CLO Deal Administrator</h3>
-                            <p class="text-gray-600 font-medium">U.S. Bank</p>
-                        </div>
-                        <span class="text-sm text-gray-500 font-light bg-gray-100 px-3 py-1 rounded-full">2024 – Present</span>
-                    </div>
-                    <!-- IMPORTANT: Add 3-5 bullet points using the CAR method here -->
-                    <ul class="list-none achievement-list mt-4 text-gray-700 space-y-2">
-                        <li><span class="font-medium">Context/Action Example:</span> Manage the full lifecycle administration for a portfolio of Collateralized Loan Obligation (CLO) transactions, ensuring adherence to complex indenture covenants.</li>
-                </div>
-
-                <!-- Experience Item 2: U.S. Bank - KYC Triggers Analyst -->
-                <div class="content-card p-6 rounded-xl shadow-lg mb-8">
-                    <div class="flex justify-between items-start mb-2">
-                        <div>
-                            <h3 class="text-xl font-semibold text-primary-blue">KYC Triggers Analyst</h3>
-                            <p class="text-gray-600 font-medium">U.S. Bank</p>
-                        </div>
-                        <span class="text-sm text-gray-500 font-light bg-gray-100 px-3 py-1 rounded-full">2024</span>
-                    </div>
-                    <!-- IMPORTANT: Add 3-5 bullet points using the CAR method here -->
-                    <ul class="list-none achievement-list mt-4 text-gray-700 space-y-2">
-                        <li>Analyzed and remediated Know Your Customer (KYC) trigger events for commercial clients, mitigating regulatory exposure and financial risk.</li>
-                        <li>Processed and validated high-volume document requests, ensuring all client files met stringent anti-money laundering (AML) requirements.</li>
-                    </ul>
-                </div>
-
-                <!-- Experience Item 3: First Bank (FBNC) - Commercial Credit Intern -->
-                <div class="content-card p-6 rounded-xl shadow-lg mb-8">
-                    <div class="flex justify-between items-start mb-2">
-                        <div>
-                            <h3 class="text-xl font-semibold text-primary-blue">Commercial Credit Intern</h3>
-                            <p class="text-gray-600 font-medium">First Bank (FBNC)</p>
-                        </div>
-                        <span class="text-sm text-gray-500 font-light bg-gray-100 px-3 py-1 rounded-full">May 2023 – Aug 2023</span>
-                    </div>
-                    <!-- Add relevant bullet points here -->
-                    <ul class="list-none achievement-list mt-4 text-gray-700 space-y-2">
-                        <li>Assisted loan officers in preparing commercial credit underwriting packages by performing cash flow and financial statement analysis on middle-market companies.</li>
-                    </ul>
-                </div>
-                
-                <!-- (You can remove less relevant past roles or combine them under a single "Previous Roles" section if space is tight) -->
-
-            </section>
-
-            <!-- Education Section -->
-            <section id="education" class="mb-16">
-                <h2 class="text-3xl font-bold text-primary-blue border-b-2 border-accent-gold pb-2 mb-6">Education</h2>
-                <div class="content-card p-6 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-semibold text-primary-blue">B.B.A. in Finance</h3>
-                    <p class="text-gray-600 font-medium">Queens University of Charlotte</p>
-                    <p class="text-sm text-gray-500 mt-2">Graduated: December 2023</p>
-                    <p class="text-sm text-gray-500">GPA: 3.46 • Dean’s List (6 semesters)</p>
-                </div>
-            </section>
-
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <!-- Chart icon -->
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="skill-title">CLO Deal Administration</div>
+          <div class="skill-desc">Learning the full lifecycle of CLO transactions — indenture review, reporting, and operational workflows in structured credit.</div>
         </div>
 
-        <!-- Footer -->
-        <footer class="bg-dark-bg text-white py-8">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <p class="mb-4 text-lg">Connect With Me</p>
-                <div class="space-x-4 mb-4">
-                    <!-- IMPORTANT: Update the mailto link to your actual email -->
-                    <a href="mailto:Carsonmholgate@gmail.com" class="text-accent-gold hover:text-white transition duration-150 ease-in-out font-medium underline">
-                        Carsonmholgate@gmail.com
-                    </a>
-                </div>
-                <p class="text-sm text-gray-400">&copy; <script>document.write(new Date().getFullYear())</script> Carson Holgate. All Rights Reserved.</p>
-                <p class="text-xs text-gray-600 mt-2">Built using modern HTML and Tailwind CSS.</p>
-            </div>
-        </footer>
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <!-- Shield icon -->
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="skill-title">KYC / AML Compliance</div>
+          <div class="skill-desc">Hands-on experience processing KYC triggers, validating client documentation, and ensuring AML regulatory adherence.</div>
+        </div>
 
-    </div> <!-- End of content-overlay -->
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <!-- File text icon -->
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <div class="skill-title">Credit Analysis</div>
+          <div class="skill-desc">Commercial credit underwriting experience including cash flow analysis and financial statement review for middle-market companies.</div>
+        </div>
+
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <!-- Grid icon -->
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </div>
+          <div class="skill-title">Excel &amp; Financial Modeling</div>
+          <div class="skill-desc">Proficient in Excel including VBA/macros for automating financial workflows and data analysis tasks.</div>
+        </div>
+
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <!-- Activity icon -->
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="skill-title">Operational Risk</div>
+          <div class="skill-desc">Understanding of operational risk frameworks gained through banking compliance and administrative roles.</div>
+        </div>
+
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <!-- Users icon -->
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="skill-title">Communication &amp; Collaboration</div>
+          <div class="skill-desc">Effective cross-functional communicator with experience coordinating across compliance, credit, and operations teams.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Experience ── -->
+  <section id="experience">
+    <div class="section-inner">
+      <div class="section-label" style="color:var(--gold);">Career History</div>
+      <h2 class="section-title">Work Experience</h2>
+      <div class="timeline">
+
+        <!-- CLO Deal Admin — CORRECTED, toned down -->
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="tl-header">
+            <div class="tl-role">CLO Deal Administrator <span class="tl-badge">Current</span></div>
+            <div class="tl-date">2024 – Present</div>
+          </div>
+          <div class="tl-company">U.S. Bank · Charlotte, NC</div>
+          <ul class="tl-bullets">
+            <li>Developing foundational expertise in Collateralized Loan Obligation (CLO) deal administration, gaining exposure to the full transaction lifecycle and indenture documentation.</li>
+            <li>Learning the processes and systems that support ongoing reporting, covenant tracking, and operational workflows for CLO transactions.</li>
+            <li>Collaborating with senior team members to build proficiency in structured credit products and the regulatory environment surrounding them.</li>
+          </ul>
+        </div>
+
+        <!-- KYC Analyst -->
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="tl-header">
+            <div class="tl-role">KYC Triggers Analyst</div>
+            <div class="tl-date">2024</div>
+          </div>
+          <div class="tl-company">U.S. Bank · Charlotte, NC</div>
+          <ul class="tl-bullets">
+            <li>Analyzed and remediated Know Your Customer (KYC) trigger events for commercial clients, mitigating regulatory exposure and financial risk.</li>
+            <li>Processed and validated high-volume document requests, ensuring all client files met stringent anti-money laundering (AML) requirements.</li>
+          </ul>
+        </div>
+
+        <!-- Internship -->
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="tl-header">
+            <div class="tl-role">Commercial Credit Intern</div>
+            <div class="tl-date">May – Aug 2023</div>
+          </div>
+          <div class="tl-company">First Bank (FBNC) · Charlotte, NC</div>
+          <ul class="tl-bullets">
+            <li>Assisted loan officers in preparing commercial credit underwriting packages, including cash flow and financial statement analysis on middle-market companies.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Education ── -->
+  <section id="education">
+    <div class="section-inner">
+      <div class="section-label">Academic Background</div>
+      <h2 class="section-title">Education</h2>
+      <div class="edu-card reveal">
+        <div class="edu-seal">QU</div>
+        <div>
+          <div class="edu-degree">B.B.A. in Finance</div>
+          <div class="edu-school">Queens University of Charlotte &nbsp;·&nbsp; Graduated December 2023</div>
+          <div class="edu-tags">
+            <span class="edu-tag">GPA 3.46</span>
+            <span class="edu-tag">Dean's List × 6</span>
+            <span class="edu-tag">Finance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Contact ── -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="section-label">Let's Connect</div>
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="contact-sub">Open to professional conversations, networking opportunities, and career discussions in structured finance and banking.</p>
+      <div class="contact-links">
+        <a href="mailto:Carsonmholgate@gmail.com" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Carsonmholgate@gmail.com
+        </a>
+        <a href="CarsonHolgateResume.pdf" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Download Resume
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Carson Holgate &nbsp;·&nbsp; All Rights Reserved</p>
+  </footer>
+
+  <!-- ── Scroll Reveal ── -->
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
